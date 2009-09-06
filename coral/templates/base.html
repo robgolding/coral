@@ -26,7 +26,8 @@
 
 					do { curDate = new Date(); }
 					while(curDate-date < millis);
-				} 
+				}
+				
 				function star_unstar(issue_id){
 					document.getElementById('star_'+issue_id).src="/media/coral/icons/ajax-loader.gif"
 					$.getJSON("{% url tracker_api %}?issue_id="+issue_id,
@@ -41,6 +42,13 @@
 							}
 						});
 				}
+				
+				$(document).ready(function(){
+					$(".issue-summary-inner").click(function() {
+						$(this).find(".more-info").toggleClass("hidden", 500);
+						//return false;
+					});
+				});
 			{% endblock js %}
 		</script>
 

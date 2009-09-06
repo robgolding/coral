@@ -2,24 +2,6 @@
 {% load accounts_extras %}
 {% load tracker %}
 
-
-{% block js %}
-	{{block.super}}
-	
-	$(document).ready(function(){
-		//$(".expander").click(function() {
-		//	$(this).parent().parent().find(".more-info").toggleClass("hidden", 500);
-		//	return false;
-		//});
-		//$(".issue-summary-inner").find("a").preventDefault();
-		$(".issue-summary-inner").click(function() {
-			$(this).find(".more-info").toggleClass("hidden", 500);
-			//return false;
-		});
-	});
-	
-{% endblock js %}
-
 {% block title %}
 	{% if filter %}
 		{{filter|capfirst}}

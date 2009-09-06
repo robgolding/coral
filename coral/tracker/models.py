@@ -116,6 +116,7 @@ class IssuePriority(models.Model):
 	#		return self.position
 	
 	class Meta:
+		verbose_name_plural = 'Issue priorities'
 		ordering = ['level', 'name']
 		
 
