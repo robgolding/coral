@@ -48,6 +48,10 @@
 						$(this).find(".more-info").toggleClass("hidden", 500);
 						//return false;
 					});
+					$(".issue-summary-inner a").click(function(event) {
+						window.location = $(this).attr("href");
+						return false;
+					});
 				});
 			{% endblock js %}
 		</script>
