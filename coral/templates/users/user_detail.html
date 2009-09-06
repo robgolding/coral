@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bugtracker %}
+{% load gravatar %}
+
+{% block page-title-inner %}
+	<h1>{{profile.user|printuser}}</h1>
+{% endblock page-title-inner %}
+
+{% block content-left-inner %}
+	<div style="float: right; margin: 10px 10px 40px 0;">{% gravatar_img_for_user profile.user %}</div>
+	<p>{{profile.bio}}</p>
+	<a style="clear: right; float: right; margin-bottom: 20px;" class="button-style" href="{% url users_edit_user user %}">Edit Profile</a>
+{% endblock content-left-inner %}

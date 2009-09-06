@@ -1,0 +1,84 @@
+{% extends "tracker/base.html" %}
+{% load accounts_extras %}
+{% load tracker %}
+{% load gravatar %}
+
+{% block title %}{{object.title}} | {{block.super}}{% endblock title %}
+
+{% block page-title-inner %}<h1>{{object.title}}</h1>{% endblock page-title-inner %}
+
+{% block content-left-inner %}
+	<div class="issue-detail-header">
+		<div class="sec-title">status</div>
+		<div class="left">
+			<a href="{% url tracker_issue_detail object.id %}" title="{{object.priority.name}}"><div class="id priority-level-{{object.priority.level}}"><span class="length-{{object.id|numchars}}">{{object.id}}</span></div></a>
+		</div>
+		<div class="right">
+			<h4>&raquo; Raised by <a href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a></h4>
+			<h4>&raquo; Assigned to <a href="{{object.assigned_to.get_profile.get_absolute_url}}">{{object.assigned_to|printuser}}</a></h4>
+			<h4>&raquo; {{object.get_status_display}}, {{object.priority.name}}</h4>
+		</div>
+		<a href="{% url tracker_add_note object.id %}"><div class="add-note">Add a Note</div></a>
+	</div>
+	
+	<div class="issue-detail-middle">
+		<div class="sec-title">description</div>
+		<p>{{object.description}}</p>
+		<div class="tags">
+			{% for tag in object.get_tags %}
+				<a title="See issues tagged '{{tag}}'" class="issue-tag" href="{% url tracker_issues_by_tag tag %}">{{tag}}</a>
+			{% endfor %}
+		</div>
+	</div>
+	
+	<div class="issue-detail-history">
+		<div class="sec-title">history</div>
+		<h2>Issue History</h2>
+	
+		{% ifequal object.actions.all.count 0 %}
+			<div class="information">This issue has not been changed since it was raised.</div>
+		{% else %}
+			{% for action in object.actions.all %}
+				{% with action.performed_by as editor %}
+						<div class="change">
+							{% spaceless %}
+							<div style="float: right;">{% gravatar_img_for_user editor 50 %}</div><h3>Edited by <a href="{{editor.get_profile.get_absolute_url}}">{{editor|printuser}}</a>
+							{% if action.performed_at|naturalday %}
+								{{action.performed_at|naturalday}}
+							{% else %}
+								on {{action.performed_at|date:"F j"}}
+							{% endif %}
+							at {{action.performed_at|date:"H:m"}}</h3>
+							{% endspaceless %}
+					
+							{% if action.notes %}<p class="notes">{{action.notes}}</p>{% endif %}
+							{% if action.changes.all %}
+								<h3>{{ editor.first_name|default_if_none:editor.username }} made the following changes:</h3>
+								<p>
+									<ul>
+										{% for change in action.changes.all %}
+											{% ifequal change.change_field 'assigned_to' %}
+												{% with change.get_new_value as user %}
+													<li>Assigned to <strong><a href="{{user.get_profile.get_absolute_url}}">{{user|printuser}}</a></strong></li>
+												{% endwith %}
+											{% else %}
+												<li>Changed <strong>{{change.get_change_field_display}}</strong> from <em>{{change.get_old_value}}</em> to <em>{{change.get_new_value}}</em></li>
+											{% endifequal %}
+										{% endfor %}
+									</ul>
+								</p>
+							{% endif %}
+						</div>
+				{% endwith %}
+			{% endfor %}
+		{% endifequal %}
+	</div>
+	
+	<div class="issue-detail-footer clearfix">
+		<a class="button-style" id="back-button" href='{% url tracker_issues %}'>Go back</a>
+		<a class="button-style" id="edit-button" href='{% url tracker_update_issue issue_id=object.id %}'>Edit this issue</a>
+	</div>
+
+{% endblock content-left-inner %}
+
+{% block short-url %}<a href="{% url tracker_issue_detail object.id %}">{% url tracker_issue_detail object.id %}</a>{% endblock short-url %}

@@ -1,0 +1,13 @@
+div.big_bug_id { float:left; border-right: 1px solid #cccccc; margin-right: 50px; padding-right: 40px; margin-bottom: 20px; }
+
+div.big_bug_id span.bug_id { font-size: 170px; position: relative; left: 15px; }
+
+div.bug_details { float:left; }
+
+div.bug_details.h2 { }
+
+div.bug_details p.description { width: 500px; border: 1px solid #999999; padding: 5px; white-space: -moz-pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; }
+ 
+div.bug_history { clear:left; }
+
+div.bug_history p.notes { text-indent: 20px; }

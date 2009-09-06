@@ -1,0 +1,7 @@
+{% load bugtracker %}
+{% load gravatar %}
+
+<h1>{{profile.user|printuser}}'s Profile</h1>
+{% gravatar_img_for_user profile.user %}
+<h3>Bio</h3>
+{{profile.bio}}

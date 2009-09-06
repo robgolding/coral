@@ -1,0 +1,44 @@
+{% extends "tracker/base.html" %}
+{% load tracker %}
+
+{% block title %}Add Note | {{block.super}}{% endblock title %}
+
+{% block js %}
+	{{block.super}}
+	
+	$(document).ready(function(){
+		$("#id_tags").autocomplete("{% url filter_tags %}", {max:6,multiple:true,multipleSeparator:" "});
+		$("#id_assigned_to").autocomplete("{% url filter_tags %}", {max:6,multiple:true,multipleSeparator:" "});
+	});
+
+	
+{% endblock js %}
+
+{% block page-title-inner %}
+
+	<h1>Add Note</h1>
+
+{% endblock page-title-inner %}
+
+{% block content-left-inner %}
+	<div class="last sec"><h6>Add a note to issue:</h6> <p><strong>{{object.title}}</strong></p>
+		
+		<div class="form issue-form">
+			<form method="POST">
+				{% for field in form %}
+					{% if field.is_hidden %}
+						{{field}} {{field.errors}}
+					{% else %}
+						<div class="field-wrapper" id="{{field.name}}">
+							<div class="label">{{field.label_tag}}</div>
+							<div class="field">{{field}}</div>
+							<div class="errors">{{field.errors}}</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				<input class="button-style" type="submit" value="Submit" /> or <a href="{{object.get_absolute_url}}">Cancel and go back</a>
+			</form>
+		</div>
+	</div>
+		
+{% endblock content-left-inner %}

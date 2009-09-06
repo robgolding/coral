@@ -1,0 +1,69 @@
+{% extends "tracker/base.html" %}
+{% load tracker %}
+
+{% block title %}
+	{% if object %}
+		Edit Issue
+	{% else %}
+		New Issue
+	{% endif %}
+	| {{block.super}}
+{% endblock title %}
+
+{% block js %}
+	{{block.super}}
+	
+	$(document).ready(function(){
+		$("#id_tags").autocomplete("{% url filter_tags %}", {max:6,multiple:true,multipleSeparator:" "});
+	});
+
+	
+{% endblock js %}
+
+{% block page-title-inner %}
+
+	<h1>
+		{% if object %}
+			Edit Issue
+		{% else %}
+			New Issue
+		{% endif %}
+	</h1>
+
+{% endblock page-title-inner %}
+
+{% block content-left-inner %}
+	<div class="last sec">
+		{% if object %}
+			<h6>Updating the issue:</h6> <p><strong>{{object.title}}</strong></p>
+		{% else %}
+			<p>Enter a new <strong>issue</strong> to track with Coral.</p>
+		{% endif %}
+		
+		<div class="form issue-form">
+			<form method="POST">
+				{% for field in form %}
+					{% if field.is_hidden %}
+						{{field}} {{field.errors}}
+					{% else %}
+						<div class="field-wrapper" id="{{field.name}}">
+							<div class="label">{{field.label_tag}}</div>
+							<div class="field">{{field}}</div>
+							<div class="errors">{{field.errors}}</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+				{% spaceless %}
+					<input class="button-style" type="submit" value="Submit" /> or 
+					{% if object %}
+						<a href="{% url tracker_issue_detail object.id %}">
+					{% else %}
+						<a href="{% url tracker_issues %}">
+					{% endif %}
+					Cancel and go back</a>
+				{% endspaceless %}
+			</form>
+		</div>
+	</div>
+		
+{% endblock content-left-inner %}

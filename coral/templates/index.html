@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load tracker %}
+{% load accounts_extras %}
+
+{% block page-title-inner %}
+<h1>Home</h1>
+{% endblock page-title-inner %}
+
+{% block content-left-inner %}
+
+	<div class="last sec">
+		<p>Welcome to Coral. This application is designed to be a simple, easy to use issue tracker. You can use it for tracking issues with any type of project, but it's most suited to software development.</p>
+	</div>
+	
+	{% if user.is_authenticated %}
+		<div>
+			<h2 class="indented">Issues Assigned to You</h2>
+			
+			{% if user.assigned.all %}
+				
+				{% with user.assigned.all|slice:":5" as object_list %}
+					{% include 'tracker/issue_list_block.html' %}
+				{% endwith %}
+				
+			{% else %}
+				<p>There are no issues assigned to you at present.</p>
+			{% endif %}
+		</div>
+	{% else %}
+		
+	{% endif %}
+	
+
+{% endblock content-left-inner %}

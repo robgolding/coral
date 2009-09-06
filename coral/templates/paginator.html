@@ -1,0 +1,27 @@
+{% spaceless %}
+<div class="pagination">
+	{# <span class="pagination-pages" title="{{pages}} Pages">{{pages}} Pages</span> #}
+	{% if has_previous %}<a href="?page={{previous}}" title="Previous Page">&lt;</a>{% endif %}
+	{# {% if show_first %}<a href="?page=1" title="First Page">&laquo;</a>{% endif %} #}
+	{% if show_first %}<a href="?page=1" title="Page 1">1</a>{% ifnotequal page_numbers.0 2 %} ... {% endifnotequal %}{% endif %}
+	
+	{% for num in page_numbers %}
+		{% ifequal num page %}
+			<span title="Current Page">{{num}}</span>
+		{% else %}
+			<a href="?page={{num}}" title="Page {{num}}">{{num}}</a>
+		{% endifequal %}
+	{% endfor %}
+	 
+	
+	{# {% if show_last %}<a href="?page={{pages}}" title="Last Page">&raquo;</a>{% endif %} #}
+	{% with page_numbers|last as last_in_range %}
+	{% with pages|add:"-1" as penultimate_page %}
+	
+	{% if show_last %}{% ifnotequal last_in_range penultimate_page %} ... {% endifnotequal %}<a href="?page={{pages}}" title="Last Page">{{pages}}</a>{% endif %}
+	{% if has_next %}<a href="?page={{next}}" title="Next Page">&gt;</a>{% endif %}
+	
+	{% endwith %}
+	{% endwith %}
+</div>
+{% endspaceless %}

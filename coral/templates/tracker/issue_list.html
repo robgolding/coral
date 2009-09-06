@@ -1,0 +1,72 @@
+{% extends 'tracker/base.html' %}
+{% load accounts_extras %}
+{% load tracker %}
+
+
+{% block js %}
+	{{block.super}}
+	
+	$(document).ready(function(){
+		//$(".expander").click(function() {
+		//	$(this).parent().parent().find(".more-info").toggleClass("hidden", 500);
+		//	return false;
+		//});
+		//$(".issue-summary-inner").find("a").preventDefault();
+		$(".issue-summary-inner").click(function() {
+			$(this).find(".more-info").toggleClass("hidden", 500);
+			//return false;
+		});
+	});
+	
+{% endblock js %}
+
+{% block title %}
+	{% if filter %}
+		{{filter|capfirst}}
+	{% endif %}
+	{% if tag %}
+		Issues Tagged '{{tag}}'
+	{% else %}
+		{% if object %}
+			{{object.title}}
+		{% else %}
+			Issues
+		{% endif %}
+	{% endif %}
+	| {{block.super}}
+{% endblock title %}
+
+{% block page-title-inner %}
+	{% if tag %}
+		<h1>Issues tagged <span>{{tag}}</span></h1>
+	{% else %}
+		{% if object %}
+			<h1>{{object.title}}</h1>
+		{% else %}
+			<h1>Issues</h1>
+		{% endif %}
+	{% endif %}
+{% endblock page-title-inner %}
+
+{% block sub-menu-inner %}
+	<ul>
+		<li>{% ifequal filter 'open' %}Open{% else %}<a href='?f=open'>Open</a>{% endifequal %}</li>
+		<li>{% ifequal filter 'closed' %}Closed{% else %}<a href='?f=closed'>Closed</a>{% endifequal %}</li>
+		<li class="last">{% ifequal filter 'all' %}All{% else %}<a href='?f=all'>All</a>{% endifequal %}</li>
+	</ul>
+{% endblock sub-menu-inner %}
+
+{% block box2-inner %}
+	<h2>Key</h2>
+	<div class="key">
+		{% for priority in priorities %}
+			<div class="id priority-level-{{priority.level}}">{{priority.name}}</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+{% block content-left-inner %}
+	
+	{% include "tracker/issue_list_block.html" %}
+	
+{% endblock content-left-inner %}

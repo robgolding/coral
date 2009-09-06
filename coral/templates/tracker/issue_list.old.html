@@ -1,0 +1,89 @@
+{% extends 'tracker/base.html' %}
+{% load accounts_extras %}
+{% load tracker %}
+
+{% block title %}
+	{% if filter %}
+		{{filter|capfirst}}
+	{% endif %}
+	{% if tag %}
+		Issues Tagged '{{tag}}'
+	{% else %}
+		{% if object %}
+			{{object.title}}
+		{% else %}
+			Issues
+		{% endif %}
+	{% endif %}
+	| {{block.super}}
+{% endblock title %}
+
+{% block page-title-inner %}
+	{% if tag %}
+		<h1>Issues tagged <span>{{tag}}</span></h1>
+	{% else %}
+		{% if object %}
+			<h1>{{object.title}}</h1>
+		{% else %}
+			<h1>Issues</h1>
+		{% endif %}
+	{% endif %}
+{% endblock page-title-inner %}
+
+{% block sub-menu-inner %}
+	<ul>
+		<li>{% ifequal filter 'open' %}Open{% else %}<a href='?f=open'>Open</a>{% endifequal %}</li>
+		<li>{% ifequal filter 'closed' %}Closed{% else %}<a href='?f=closed'>Closed</a>{% endifequal %}</li>
+		<li class="last">{% ifequal filter 'all' %}All{% else %}<a href='?f=all'>All</a>{% endifequal %}</li>
+	</ul>
+{% endblock sub-menu-inner %}
+
+{% block box2-inner %}
+	<h2>Key</h2>
+	<div class="key">
+		<div class="id urgent">Urgent</div>
+		<div class="id important">Important</div>
+		<div class="id normal">Normal</div>
+		<div class="id not_important">Not Important</div>
+		<div class="id wont_fix">Won't Fix</div>
+	</div>
+{% endblock %}
+
+{% block content-left-inner %}
+	{% if not object_list %}
+		<div class="last sec">
+			No issues match your filter.
+		</div>
+	{% endif %}
+	{% for object in object_list|dictsortreversed:"last_updated" %}
+		{% with object.created_at|naturalday as natural_day %}
+			<div class="issue-summary {% ifin user object.starred_for %}starred{% else %}unstarred{% endifin %}{% if forloop.last %} last{% endif %}" id="issue-summary-{{object.id}}">
+				<div class="issue-summary-inner clearfix" onClick="window.location='{{object.get_absolute_url}}'">
+					<div class="hover-fix"></div>
+					<div class="raised">
+						<div class="raised-name"><a title="{{object.raised_by|printuser}}'s Profile" href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a></div>
+						<div class="raised-time">{{object.created_at|timesince}} ago</div>
+						<div class="raised-priority">{{object.get_priority_display}}</div>
+						<div class="raised-assigned">Assigned to {{object.assigned_to|printuser}}</div>
+					</div>
+					<div class="left">
+						<a href="{{object.get_absolute_url}}" title="{{object.id}} ({{object.get_priority_display}})"><div class="id {{object.priority}}"><span class="length-{{object.id|numchars}}">{{object.id}}</span></div></a>
+					</div>
+					<div class="right">
+						<h3><a href="{{object.get_absolute_url}}" title="{{object.description|truncatewords:20}}">{{object.title|truncatechars:80}}</a></h3>
+						<div class="tags">
+							{% for tag in object.get_tags %}
+								<a class="issue-tag" title="See issues tagged '{{tag}}'" href="{% url tracker_issues_by_tag tag %}{% ifnotequal filter default_filter %}?f={{filter}}{% endifnotequal %}">{{tag}}</a>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endwith %}
+	{% endfor %}
+	
+	{% if is_paginated %}
+		{% paginator %}
+	{% endif %}
+	
+{% endblock content-left-inner %}
