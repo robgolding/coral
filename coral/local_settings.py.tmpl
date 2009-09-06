@@ -1,0 +1,22 @@
+import os
+WORKING_COPY = True
+PATH = os.path.abspath(os.path.dirname(__file__))
+
+## You probably shouldn't modify anything above this line ##
+
+
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = 'dev.db'
+
+MEDIA_ROOT = os.path.join(PATH, 'media')
+MEDIA_URL = '/media/'
+
+TEMPLATE_DIRS = os.path.join(PATH, 'templates')
+
+ABSOLUTE_URL_OVERRIDES = {
+	'auth.user': lambda o: "/users/%s/" % o.username,
+}
+
+LOGIN_URL = '/accounts/login/'
+
+LOGIN_REDIRECT_URL = '/'
