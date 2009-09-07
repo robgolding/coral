@@ -8,13 +8,17 @@
 {% endblock page-title-inner %}
 
 {% block content-left-inner %}
-	<div style="float: right; margin: 10px 10px 40px 0;">{% gravatar_img_for_user profile.user %}</div>
+	<div style="float: right; margin: 10px 10px 0 0;">{% gravatar_img_for_user profile.user %}</div>
 
-	<div class="sec bio">
+	<div class="sec bio clearfix">
 		{{profile.bio|linebreaks}}
 	</div>
 	
-	{% ifequal user profile.user %}
-		<a style="clear: right; float: right; margin-bottom: 20px;" class="button-style" href="{% url users_edit_user user %}">Edit Profile</a>
-	{% endifequal %}
+	<div class="user-detail-footer clearfix">
+		<a id="back-button" class="button-style" href='{% url users_list %}'>Go back</a>
+		{% ifequal user profile.user %}
+			<a id="edit-button" class="button-style" href="{% url users_edit_user user %}">Edit Profile</a>
+		{% endifequal %}
+	</div>
+	
 {% endblock content-left-inner %}

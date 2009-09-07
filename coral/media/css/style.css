@@ -163,6 +163,9 @@ div.issue-detail-footer { padding: 10px 10px 20px; margin: 0 10px; }
 div.issue-detail-footer #back-button { float: left; }
 div.issue-detail-footer #edit-button { float: right; }
 
+div.user-detail-footer { padding: 10px 10px 20px; margin: 0 10px; }
+div.user-detail-footer #back-button { float: left; }
+div.user-detail-footer #edit-button { float: right; }
 
 
 
@@ -186,4 +189,4 @@ div.sec-title { position: relative; float: right; color: #bbb; font: italic 1em 
 
 div.sec { padding: 10px 10px 20px; margin: 0 10px; border-bottom: 1px solid #CCC; }
 div.sec.last { border: none; }
-div.bio { padding-bottom: 40px; margin-bottom: 20px; }
+div.bio { padding-bottom: 30px; }
