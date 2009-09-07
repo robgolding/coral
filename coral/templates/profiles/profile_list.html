@@ -1,8 +1,0 @@
-{% load accounts_extras %}
-{% load bugtracker %}
-
-<ul>
-{% for profile in object_list %}
-<li><a href="{{profile.get_absolute_url}}">{{profile.user|printuser}}</a></li>
-{% endfor %}
-</ul>

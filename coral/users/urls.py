@@ -16,8 +16,9 @@ urlpatterns = patterns('django.views.generic',
 
 urlpatterns += patterns('',
 	
+	url(r'^edit/(?P<username>.+)/$', views.edit_user, {'template_name': 'users/edit_user.html', 'extra_context': {'tab': 'users'}}, name='users_edit_user'),
+	
 	url(r'^(?P<username>.+)/$', views.user_detail, {'template_name': 'users/user_detail.html', 'extra_context': {'tab': 'users'}}, name='users_user_detail'),
 	
-	url(r'^edit/(?P<username>.+)/$', profiles.views.edit_profile, {'template_name': 'users/edit_user.html', 'extra_context': {'tab': 'users'}}, name='users_edit_user'),
-	
+	url(r'^(?P<username>.+)/$', views.user_detail, {'template_name': 'users/user_detail.html', 'extra_context': {'tab': 'users'}}, name='profiles_profile_detail'),	
 )
