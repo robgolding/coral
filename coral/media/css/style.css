@@ -186,3 +186,4 @@ div.sec-title { position: relative; float: right; color: #bbb; font: italic 1em 
 
 div.sec { padding: 10px 10px 20px; margin: 0 10px; border-bottom: 1px solid #CCC; }
 div.sec.last { border: none; }
+div.bio { padding-bottom: 40px; margin-bottom: 20px; }

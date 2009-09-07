@@ -23,7 +23,11 @@
 	
 	<div class="issue-detail-middle">
 		<div class="sec-title">description</div>
-		<p>{{object.description}}</p>
+
+		<div class="description">
+			{{object.description|linebreaks}}
+		</div>
+		
 		<div class="tags">
 			{% for tag in object.get_tags %}
 				<a title="See issues tagged '{{tag}}'" class="issue-tag" href="{% url tracker_issues_by_tag tag %}">{{tag}}</a>
