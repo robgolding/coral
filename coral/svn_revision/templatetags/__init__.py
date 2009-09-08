@@ -13,7 +13,7 @@ def get_revision():
 		try:
 			import local_settings
 		except:
-			if not modified and not switched:
+			if not modified:
 				return outS
 			else:
 				raise Exception, "Modified version of an automatic checkout"
