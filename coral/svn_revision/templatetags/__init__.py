@@ -3,7 +3,7 @@ def get_revision():
 	import re, os
 
 	try:
-		p = subprocess.Popen('svnversion', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+		p = subprocess.Popen('svnversion ../../', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 		outS = p.stdout.read().strip()
 		if outS[-1] == 'S':
 			switched = True
