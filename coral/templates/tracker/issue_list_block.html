@@ -24,11 +24,13 @@
 						
 						<h3><a href="{{object.get_absolute_url}}" title="{{object.description|truncatewords:20}}">{{object.title|truncatechars:75}}</a></h3>
 						
-						<div class="tags">
-							{% for tag in object.get_tags %}
-								<a class="issue-tag" title="See issues tagged '{{tag}}'" href="{% url tracker_issues_by_tag tag %}{% ifnotequal filter default_filter %}?f={{filter}}{% endifnotequal %}">{{tag}}</a>
-							{% endfor %}
-						</div>
+						{% if object.get_tags %}
+							<div class="tags">
+								{% for tag in object.get_tags %}
+									<a class="issue-tag" title="See issues tagged '{{tag}}'" href="{% url tracker_issues_by_tag tag %}{% ifnotequal filter default_filter %}?f={{filter}}{% endifnotequal %}">{{tag}}</a>
+								{% endfor %}
+							</div>
+						{% endif %}
 						
 						<div class="more-info hidden">
 							{% with object.created_at|naturalday as naturalday %}
@@ -47,7 +49,7 @@
 					{# <a href="#"><div class="expander"></div></a> #}
 					
 					<div class="raised">
-						<div class="raised-name">Raised by <a title="{{object.raised_by|printuser}}'s Profile" href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a> {{object.created_at|timesince}} ago</div>
+						Raised by <a title="{{object.raised_by|printuser}}'s Profile" href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a> {{object.created_at|timesince}} ago
 					</div>
 				</div>
 			</div>
