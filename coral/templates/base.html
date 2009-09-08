@@ -1,5 +1,6 @@
 {% load accounts_extras %}
 {% load media %}
+{% load revision %}
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -165,7 +166,7 @@
 				<div id="footer">
 					{% block footer-inner %}
 						<span class="left">&copy; 2009 Rob Golding, Coral Issue Tracker</span>
-						<span class="right">Version: {{svn_revision}}</span>
+						<span class="right">SVN Revision: {% revision %}</span>
 					{% endblock footer-inner %}
 				</div>
 				{% endblock footer %}

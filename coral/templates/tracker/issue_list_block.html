@@ -9,7 +9,7 @@
 {% else %}
 
 	<div class="issue-list {% if is_paginated %}paginated{% endif %}">
-	{% for object in object_list|dictsortreversed:"last_updated" %}
+	{% for object in object_list %}
 		{% with object.created_at|naturalday as natural_day %}
 			<div class="issue-summary {% ifin user object.starred_for %}starred{% else %}unstarred{% endifin %}{% if forloop.last %} last{% endif %}" id="issue-summary-{{object.id}}">
 				<div class="issue-summary-inner clearfix">

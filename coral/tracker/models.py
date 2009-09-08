@@ -206,4 +206,4 @@ class Issue(models.Model):
 	
 	class Meta:
 		verbose_name_plural = 'Issues'
-		ordering = ['-last_updated', 'id']
+		ordering = ['-last_updated', '-priority__level']

@@ -11,6 +11,7 @@ import settings
 
 def index(request, extra_context={}, template_name='index.html'):
 	data = { }
+	object_list = request.user.assigned.all()
 	data.update(extra_context)
 	return render_to_response(template_name, data, context_instance=RequestContext(request))
 
@@ -21,7 +22,7 @@ def issue_list(request, tag=None, template_name='tracker/issue_list.html', **kwa
 		kwargs['extra_context']['tag'] = tag
 		queryset = TaggedItem.objects.get_by_model(Issue, tag)
 	else:
-		queryset = Issue.objects.order_by('-last_updated')
+		queryset = Issue.objects.all()
 	filter = request.GET.get('f')
 	if not filter: filter = settings.TRACKER_DEFAULT_FILTER
 	if filter == 'closed':

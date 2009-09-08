@@ -80,7 +80,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.media",
 	'django.core.context_processors.request',
 	'coral.tracker.context_processors.filter',
-	'coral.tracker.context_processors.svn_revision',
 )
 
 AUTH_PROFILE_MODULE = 'users.Profile'
@@ -108,6 +107,7 @@ INSTALLED_APPS = (
     'coral.accounts',
     'coral.tracker',
     'coral.users',
+    'coral.svn_revision',
 )
 
 try:
