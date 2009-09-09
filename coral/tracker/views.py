@@ -10,8 +10,10 @@ from tagging.models import TaggedItem
 import settings
 
 def index(request, extra_context={}, template_name='index.html'):
-	data = { }
-	object_list = request.user.assigned.all()
+	data = {}
+	if request.user.is_authenticated():
+		assigned_issues = request.user.assigned.all()
+		data['assigned_issues'] = assigned_issues
 	data.update(extra_context)
 	return render_to_response(template_name, data, context_instance=RequestContext(request))
 

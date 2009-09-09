@@ -16,9 +16,9 @@
 		<div>
 			<h2 class="indented">Issues Assigned to You</h2>
 			
-			{% if user.assigned.all %}
+			{% if assigned_issues %}
 				
-				{% with user.assigned.all|slice:":5" as object_list %}
+				{% with assigned_issues|slice:":5" as object_list %}
 					{% include 'tracker/issue_list_block.html' %}
 				{% endwith %}
 				
