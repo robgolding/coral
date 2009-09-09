@@ -3,7 +3,7 @@ from django.template import RequestContext
 
 from django.db.models import get_model
 
-def filter_tags(request, extra_context={}, template='filter/templates/generic.html'):
+def filter_tags(request, extra_context={}, template='filter/generic.html'):
 	model = get_model('tagging', 'Tag')
 	q = request.GET.get('q')
 	if not q:
