@@ -1,12 +1,12 @@
 import os
+
 WORKING_COPY = True
 PATH = os.path.abspath(os.path.dirname(__file__))
 
 ## You probably shouldn't modify anything above this line ##
 
-
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'dev.db'
+DATABASE_NAME = os.path.join(PATH, 'dev.db')
 
 MEDIA_ROOT = os.path.join(PATH, 'media')
 MEDIA_URL = '/media/'
