@@ -143,7 +143,9 @@ div.issue-detail-header div.left div.id span.length-4 { font-size: 3em; line-hei
 div.issue-detail-header div.left div.id span.length-5 { font-size: 2.4em; line-height: 3.2em; }
 
 div.issue-detail-header div.right { margin-top: 5px; }
-div.issue-detail-header div.actions { clear: right; float: right; padding-top: 10px; }
+div.issue-detail-header div.actions { clear: right; float: right; padding-top: 10px; text-align: center; }
+div.issue-detail-header div.actions a.previous-issue { float: left; }
+div.issue-detail-header div.actions a.next-issue { float: right; }
 
 div.issue-detail-header h1 { margin: 10px 0 25px 0; }
 

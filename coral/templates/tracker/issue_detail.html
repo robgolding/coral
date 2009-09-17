@@ -40,6 +40,12 @@
 		{% if user.is_authenticated %}
 			<div class="actions">
 				{% include 'tracker/issue_detail_star.html' %}
+				{% if object.get_previous_by_created_at %}
+					<a class="previous-issue" title="Previous issue ({{object.get_previous_by_created_at.title|truncatewords:5}})" href="{{object.get_previous_by_created_at.get_absolute_url}}"><img src="{% media 'icons/24-arrow-previous.png' %}" /></a>
+				{% endif %}
+				{% if object.get_next_by_created_at %}
+					<a class="next-issue" title="Next issue ({{object.get_next_by_created_at.title|truncatewords:5}})" href="{{object.get_next_by_created_at.get_absolute_url}}"><img src="{% media 'icons/24-arrow-next.png' %}" /></a>
+				{% endif %}
 			</div>
 		{% endif %}
 		<a href="{% url tracker_add_note object.id %}"><div class="add-note">Add a Note</div></a>
