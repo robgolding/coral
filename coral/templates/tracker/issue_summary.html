@@ -1,0 +1,9 @@
+{% load accounts_extras %}
+{% load tracker %}
+{% load gravatar %}
+
+{% with object.created_at|naturalday as natural_day %}
+	<div class="issue-summary {% ifin user object.starred_for %}starred{% else %}unstarred{% endifin %}{% if forloop.last %} last{% endif %}" id="issue-summary-{{object.id}}">
+		{% include 'tracker/issue_summary_inner.html' %}
+	</div>
+{% endwith %}

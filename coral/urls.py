@@ -10,7 +10,7 @@ admin.autodiscover()
 	
 urlpatterns = patterns('',
 	
-	(r'^admin/(.*)', admin.site.root),
+	url(r'^admin/(.*)', admin.site.root, name="admin"),
 	
 	url(r'^$', index, name="index"),
 	(r'^issues/', include('coral.tracker.urls')),

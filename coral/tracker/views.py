@@ -1,8 +1,9 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic.list_detail import object_list
+from django.views.generic.list_detail import object_list, object_detail
+from django.core import serializers
 
 from forms import NewIssueForm, EditIssueForm, AddNoteToIssueForm
 from models import Issue, IssuePriority
@@ -36,6 +37,17 @@ def issue_list(request, tag=None, template_name='tracker/issue_list.html', **kwa
 	kwargs['extra_context']['priorities'] = IssuePriority.objects.all()
 	kwargs['extra_context']['filter'] = filter
 	return object_list(request, queryset, template_name=template_name, **kwargs)
+
+def issue_summary(request, object_id, queryset, *args, **kwargs):
+	format = request.GET.get('format', 'html')
+	if format == 'json':
+		data = serializers.serialize("json", queryset.filter(pk=object_id))
+		return HttpResponse(data, mimetype="application/javascript")
+	elif format == 'xml':
+		data = serializers.serialize("xml", queryset.filter(pk=object_id))
+		return HttpResponse(data, mimetype="application/javascript")
+	else:
+		return object_detail(request, object_id=object_id, queryset=queryset, *args, **kwargs)
 
 @login_required
 def create_issue(request, extra_context={}, template='tracker/issue_form.html'):
@@ -77,31 +89,3 @@ def add_note(request, issue_id, extra_context={}, template='tracker/issue_add_no
 	data = { 'form': form, 'object': issue }
 	data.update(extra_context)
 	return render_to_response(template, data, context_instance=RequestContext(request))
-
-def api(request):
-	try:	
-		issue_id = request.GET.get('issue_id')
-		issue = Issue.objects.get(pk=issue_id)
-	except Issue.DoesNotExist:
-		error = True
-	else:
-		error = False
-		if issue.is_starred_for(request.user):
-			issue.unstar_for(request.user)
-			starred = 'false'
-		else:
-			issue.star_for(request.user)
-			starred = 'true'
-	if not error:
-		data = """
-			{
-				"result": true,
-				"starred": %s
-			}""" % starred
-	else:
-		data = """
-			{
-				"result": false
-			}"""
-
-	return HttpResponse(data, mimetype="application/javascript")

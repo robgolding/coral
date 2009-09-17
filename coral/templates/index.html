@@ -16,14 +16,21 @@
 		<div>
 			<h2 class="indented">Issues Assigned to You</h2>
 			
-			{% if assigned_issues %}
-				
-				{% with assigned_issues|slice:":5" as object_list %}
-					{% include 'tracker/issue_list_block.html' %}
-				{% endwith %}
-				
+			{% if not assigned_issues %}
+				<div class="last sec">
+					<p>There are no issues assigned to you at present.</p>
+				</div>
 			{% else %}
-				<p>There are no issues assigned to you at present.</p>
+
+				<div class="issue-list {% if is_paginated %}paginated{% endif %}">
+				{% for object in assigned_issues|slice:":5" %}
+					{% include 'tracker/issue_summary.html' %}
+				{% endfor %}
+				</div>
+
+				{% if is_paginated %}
+					{% paginator %}
+				{% endif %}
 			{% endif %}
 		</div>
 	{% else %}

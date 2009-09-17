@@ -1,4 +1,4 @@
-{% extends 'tracker/base.html' %}
+{% extends "tracker/tracker_base.html" %}
 {% load accounts_extras %}
 {% load tracker %}
 
@@ -49,6 +49,20 @@
 
 {% block content-left-inner %}
 	
-	{% include "tracker/issue_list_block.html" %}
-	
+	{% if not object_list %}
+		<div class="last sec">
+			No issues match your filter.
+		</div>
+	{% else %}
+
+		<div class="issue-list {% if is_paginated %}paginated{% endif %}">
+		{% for object in object_list %}
+			{% include 'tracker/issue_summary.html' %}
+		{% endfor %}
+		</div>
+
+		{% if is_paginated %}
+			{% paginator %}
+		{% endif %}
+	{% endif %}
 {% endblock content-left-inner %}
