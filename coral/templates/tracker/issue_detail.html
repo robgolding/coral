@@ -53,7 +53,7 @@
 								{% else %}
 									on {{action.performed_at|date:"F j"}}
 								{% endif %}
-								at {{action.performed_at|date:"H:m"}}</h3>
+								at {{action.performed_at|time:"H:i"}}</h3>
 								{% endspaceless %}
 					
 								{% if action.notes %}<p class="notes">{{action.notes}}</p>{% endif %}

@@ -77,6 +77,9 @@ class IssueAction(models.Model):
 	
 	def __unicode__(self):
 		return '[IssueAction] on issue #%s at %s' % (self.issue.id, self.performed_at)
+	
+	class Meta:
+		ordering = ['performed_at']
 
 class Star(models.Model):
 	issue = models.ForeignKey('Issue', related_name='stars')
