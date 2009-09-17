@@ -39,43 +39,45 @@
 		<div class="sec-title">history</div>
 		<h2>Issue History</h2>
 	
-		{% ifequal object.actions.all.count 0 %}
+		{% if not object.has_history %}
 			<div class="information">This issue has not been changed since it was raised.</div>
 		{% else %}
 			{% for action in object.actions.all %}
-				{% with action.performed_by as editor %}
-						<div class="change">
-							{% spaceless %}
-							<div style="float: right;">{% gravatar_img_for_user editor 50 %}</div><h3>Edited by <a href="{{editor.get_profile.get_absolute_url}}">{{editor|printuser}}</a>
-							{% if action.performed_at|naturalday %}
-								{{action.performed_at|naturalday}}
-							{% else %}
-								on {{action.performed_at|date:"F j"}}
-							{% endif %}
-							at {{action.performed_at|date:"H:m"}}</h3>
-							{% endspaceless %}
+				{% if action.has_content %}
+					{% with action.performed_by as editor %}
+							<div class="change">
+								{% spaceless %}
+								<div style="float: right;">{% gravatar_img_for_user editor 50 %}</div><h3>Edited by <a href="{{editor.get_profile.get_absolute_url}}">{{editor|printuser}}</a>
+								{% if action.performed_at|naturalday %}
+									{{action.performed_at|naturalday}}
+								{% else %}
+									on {{action.performed_at|date:"F j"}}
+								{% endif %}
+								at {{action.performed_at|date:"H:m"}}</h3>
+								{% endspaceless %}
 					
-							{% if action.notes %}<p class="notes">{{action.notes}}</p>{% endif %}
-							{% if action.changes.all %}
-								<h3>{{ editor.first_name|default_if_none:editor.username }} made the following changes:</h3>
-								<p>
-									<ul>
-										{% for change in action.changes.all %}
-											{% ifequal change.change_field 'assigned_to' %}
-												{% with change.get_new_value as user %}
-													<li>Assigned to <strong><a href="{{user.get_profile.get_absolute_url}}">{{user|printuser}}</a></strong></li>
-												{% endwith %}
-											{% else %}
-												<li>Changed <strong>{{change.get_change_field_display}}</strong> from <em>{{change.get_old_value}}</em> to <em>{{change.get_new_value}}</em></li>
-											{% endifequal %}
-										{% endfor %}
-									</ul>
-								</p>
-							{% endif %}
-						</div>
-				{% endwith %}
+								{% if action.notes %}<p class="notes">{{action.notes}}</p>{% endif %}
+								{% if action.changes.all %}
+									<h3>{{ editor.first_name|default_if_none:editor.username }} made the following changes:</h3>
+									<p>
+										<ul>
+											{% for change in action.changes.all %}
+												{% ifequal change.change_field 'assigned_to' %}
+													{% with change.get_new_value as user %}
+														<li>Assigned to <strong><a href="{{user.get_profile.get_absolute_url}}">{{user|printuser}}</a></strong></li>
+													{% endwith %}
+												{% else %}
+													<li>Changed <strong>{{change.get_change_field_display}}</strong> from <em>{{change.get_old_value}}</em> to <em>{{change.get_new_value}}</em></li>
+												{% endifequal %}
+											{% endfor %}
+										</ul>
+									</p>
+								{% endif %}
+							</div>
+					{% endwith %}
+					{% endif %}
 			{% endfor %}
-		{% endifequal %}
+		{% endif %}
 	</div>
 	
 	<div class="issue-detail-footer clearfix">

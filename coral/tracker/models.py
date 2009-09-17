@@ -71,6 +71,10 @@ class IssueAction(models.Model):
 	performed_at = models.DateTimeField(auto_now=True)
 	performed_by = models.ForeignKey(User)
 	
+	@property
+	def has_content(self):
+		return self.notes or self.changes.all()
+	
 	def __unicode__(self):
 		return '[IssueAction] on issue #%s at %s' % (self.issue.id, self.performed_at)
 
@@ -87,33 +91,10 @@ class Star(models.Model):
 
 class IssuePriority(models.Model):
 	name = models.CharField(max_length=255)
-	#position = models.IntegerField(unique=True, null=True)
 	level = models.IntegerField(choices=ISSUE_PRIORITY_LEVELS)
-	
-	#objects = IssuePriorityManager()
 	
 	def __unicode__(self):
 		return self.name
-	
-	#def moveup(self):
-	#	model = self.__class__
-	#	higher = model.objects.filter(position__gt=self.position)
-	#	if higher:
-	#		first = higher.order_by('position')[0]
-	#		model.objects.swap(self, first)
-	#		return self.position
-	#	else:
-	#		return self.position
-	
-	#def movedown(self):
-	#	model = self.__class__
-	#	lower = model.objects.filter(position__lt=self.position)
-	#	if lower:
-	#		first = lower.order_by('-position')[0]
-	#		model.objects.swap(self, first)
-	#		return self.position
-	#	else:
-	#		return self.position
 	
 	class Meta:
 		verbose_name_plural = 'Issue priorities'
@@ -199,6 +180,15 @@ class Issue(models.Model):
 	@property
 	def starred_for(self):
 		return list(set([star.user for star in self.stars.all()]))
+	
+	@property
+	def has_history(self):
+		if not self.actions.count():
+			return False
+		for action in self.actions.all():
+			if action.has_content:
+				return True
+		return False
 	
 	def get_tags(self):
 		from tagging.models import Tag
