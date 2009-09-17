@@ -37,9 +37,11 @@
 			<h4>&raquo; Assigned to <a href="{{object.assigned_to.get_profile.get_absolute_url}}">{{object.assigned_to|printuser}}</a></h4>
 			<h4>&raquo; {{object.get_status_display}}, {{object.priority.name}}</h4>
 		</div>
-		<div class="actions">
-			{% include 'tracker/issue_detail_star.html' %}
-		</div>
+		{% if user.is_authenticated %}
+			<div class="actions">
+				{% include 'tracker/issue_detail_star.html' %}
+			</div>
+		{% endif %}
 		<a href="{% url tracker_add_note object.id %}"><div class="add-note">Add a Note</div></a>
 	</div>
 	
