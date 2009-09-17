@@ -6,7 +6,7 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.core import serializers
 
 from forms import NewIssueForm, EditIssueForm, AddNoteToIssueForm
-from models import Issue, IssuePriority
+from models import Issue, IssuePriority, Star
 from tagging.models import TaggedItem
 import settings
 
@@ -48,6 +48,16 @@ def issue_summary(request, object_id, queryset, *args, **kwargs):
 		return HttpResponse(data, mimetype="application/javascript")
 	else:
 		return object_detail(request, object_id=object_id, queryset=queryset, *args, **kwargs)
+
+def star_unstar(request, object_id):
+	issue = get_object_or_404(Issue, pk=object_id)
+	star, created = Star.objects.get_or_create(user=request.user, issue=issue)
+	if not created:
+		star.delete()
+	if request.is_ajax():
+		data = {'object': issue}
+		return render_to_response('tracker/issue_detail_star.html', data, context_instance=RequestContext(request))
+	return HttpResponseRedirect(issue.get_absolute_url())
 
 @login_required
 def create_issue(request, extra_context={}, template='tracker/issue_form.html'):

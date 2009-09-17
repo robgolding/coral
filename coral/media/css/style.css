@@ -102,7 +102,7 @@ div.right { float: left; }
 div.issue-summary-inner div.right { width: 580px; }
 div.issue-summary-inner div.right h3 { font-size: 1.4em; padding-top: 10px; margin-bottom: 20px; }
 
-div.id { color: black; font-weight: bold; font-family: Verdana, Helvetica, Arial, sans-serif; float: left; xwidth: 45px; width: 65px; xheight: 33px; height: 65px; background: #FFF6BF; border: 2px solid #a28b00; overflow: hidden; xpadding: 15px 2px 3px 3px; text-align: right; }
+div.id { color: black; font-weight: bold; font-family: Verdana, Helvetica, Arial, sans-serif; float: left; width: 65px; height: 65px; background: #FFF6BF; border: 2px solid #a28b00; overflow: hidden; text-align: right; }
 div.id span { letter-spacing: -0.1em; }
 
 div.issue-summary-inner div.left div.id span.length-1 { font-size: 5em; line-height: 1.2em; }
@@ -111,11 +111,11 @@ div.issue-summary-inner div.left div.id span.length-3 { font-size: 3em; line-hei
 div.issue-summary-inner div.left div.id span.length-4 { font-size: 2.2em; line-height: 2.7em; }
 div.issue-summary-inner div.left div.id span.length-5 { font-size: 1.8em; line-height: 3.2em; }
 
-div.id.priority-level-1 { background-color: #f81312; border-color: #7c0909; color: #7c0909; xcolor: #fb9898; } /* Red */
-div.id.priority-level-2 { background-color: #fa630a; border-color: #7d3204; color: #7d3204; xcolor: fcba96; } /* Orange */
-div.id.priority-level-3 { background-color: #5a9a00; border-color: #3c6600; color: #3c6600; xcolor: #ace685; } /* Green */
-div.id.priority-level-4 { background-color: #CCFFFF; xbackground-color: #cdcd00; border-color: #666688; xborder-color: #808000; color: #666688; xcolor: #808000; xcolor: #ffff77; } /* Yellow */
-div.id.priority-level-5 { background-color: #ffffff; border-color: #7f7f7f; color: #7f7f7f; xcolor: #cccccc; } /* Grey */
+div.id.priority-level-1 { background-color: #f81312; border-color: #7c0909; color: #7c0909; } /* Red */
+div.id.priority-level-2 { background-color: #fa630a; border-color: #7d3204; color: #7d3204; } /* Orange */
+div.id.priority-level-3 { background-color: #5a9a00; border-color: #3c6600; color: #3c6600; } /* Green */
+div.id.priority-level-4 { background-color: #CCFFFF; border-color: #666688; color: #666688; } /* Yellow */
+div.id.priority-level-5 { background-color: #ffffff; border-color: #7f7f7f; color: #7f7f7f; } /* Grey */
 
 div.issue-summary-inner div.tags { float: left; min-height: 25px;}
 div.issue-summary:hover div.tags {  }
@@ -134,7 +134,7 @@ div.issue-list-footer { text-align: right; padding: 10px; padding-top: 20px; }
 div.issue-detail-header { padding: 10px 10px 20px; margin: 0 10px; border-bottom: 1px solid #CCC; }
 div.issue-detail-header:after { content: "."; visibility: hidden; display: block; height: 0; clear: both; }
 
-div.issue-detail-header div.left div.id { width: 90px; xheight: 65px; height: 90px; xpadding: 35px 0 0 10px; padding: 0; }
+div.issue-detail-header div.left div.id { width: 90px; height: 90px; padding: 0; }
 
 div.issue-detail-header div.left div.id span.length-1 { font-size: 7em; line-height: 1.1em; }
 div.issue-detail-header div.left div.id span.length-2 { font-size: 5em; line-height: 1.5em; }
@@ -143,6 +143,7 @@ div.issue-detail-header div.left div.id span.length-4 { font-size: 3em; line-hei
 div.issue-detail-header div.left div.id span.length-5 { font-size: 2.4em; line-height: 3.2em; }
 
 div.issue-detail-header div.right { margin-top: 5px; }
+div.issue-detail-header div.actions { clear: right; float: right; padding-top: 10px; }
 
 div.issue-detail-header h1 { margin: 10px 0 25px 0; }
 
@@ -174,7 +175,7 @@ div#content-header { width: 696px; padding: 0 0 0 6px; }
 
 div#content-header div#page-title { float: left; margin: 20px 0 10px 0; padding-left: 20px; }
 div#content-header div#page-title.long { }
-div#content-header div#page-title h1 { font: italic 2em Arial; color: #4b4b4b; margin: 0; padding; 0; }
+div#content-header div#page-title h1 { font: italic 2em Arial; color: #4b4b4b; margin: 0; padding: 0; }
 div#content-header div#page-title h1 span { color: #f82721;  }
 
 div#content-header div#sub-menu { float: right; margin: 30px 0 0 0; }

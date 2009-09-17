@@ -2,14 +2,33 @@
 {% load accounts_extras %}
 {% load tracker %}
 {% load gravatar %}
+{% load media %}
 
 {% block title %}{{object.title}} | {{block.super}}{% endblock title %}
 
 {% block page-title-inner %}<h1>{{object.title}}</h1>{% endblock page-title-inner %}
 
+{% block js %}
+	{{block.super}}
+	
+	starClick = function() {
+		$("#star_unstar").click(function() { 
+			$.get("{% url tracker_star_unstar object.id %}", function(data) { $('#star').replaceWith(data); starClick(); });
+			return false;
+		});
+	}
+	
+	$(document).ready(function() {
+		starClick();
+	});
+	
+{% endblock %}
+
 {% block content-left-inner %}
 	<div class="issue-detail-header">
+		
 		<div class="sec-title">status</div>
+		
 		<div class="left">
 			<a href="{% url tracker_issue_detail object.id %}" title="{{object.priority.name}}"><div class="id priority-level-{{object.priority.level}}"><span class="length-{{object.id|numchars}}">{{object.id}}</span></div></a>
 		</div>
@@ -17,6 +36,9 @@
 			<h4>&raquo; Raised by <a href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a></h4>
 			<h4>&raquo; Assigned to <a href="{{object.assigned_to.get_profile.get_absolute_url}}">{{object.assigned_to|printuser}}</a></h4>
 			<h4>&raquo; {{object.get_status_display}}, {{object.priority.name}}</h4>
+		</div>
+		<div class="actions">
+			{% include 'tracker/issue_detail_star.html' %}
 		</div>
 		<a href="{% url tracker_add_note object.id %}"><div class="add-note">Add a Note</div></a>
 	</div>

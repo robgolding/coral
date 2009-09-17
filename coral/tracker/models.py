@@ -85,12 +85,11 @@ class Star(models.Model):
 	issue = models.ForeignKey('Issue', related_name='stars')
 	user = models.ForeignKey(User, related_name='stars')
 	
-	
 	class Meta:
 		unique_together = ('issue', 'user',)
 	
 	def __unicode__(self):
-		return '[Star] %s: #%d' % (self.user.username, self.issue.id)
+		return '%s [%s]' % (self.issue, self.user)
 
 class IssuePriority(models.Model):
 	name = models.CharField(max_length=255)
@@ -114,6 +113,7 @@ class Issue(models.Model):
 	status = models.CharField(max_length=20, choices=ISSUE_STATUS_CHOICES)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated = models.DateTimeField(auto_now=True, auto_now_add=True)
+	
 	tags = TagField()
 	
 	objects = IssueManager()

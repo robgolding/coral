@@ -1,0 +1,10 @@
+{% load tracker %}
+{% load media %}
+
+<div id="star">			
+	{% if object|starred_for:user %}
+		<a title="Currently starred (click to unstar)" href="{% url tracker_star_unstar object.id %}"><img id="star_unstar" src="{% media 'icons/star-on.png' %}" /></a>
+	{% else %}
+		<a title="Not currently starred (click to star)" href="{% url tracker_star_unstar object.id %}"><img id="star_unstar" src="{% media 'icons/star-off.png' %}" /></a>
+	{% endif %}
+</div>

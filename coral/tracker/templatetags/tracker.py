@@ -5,8 +5,16 @@ from django.utils.encoding import force_unicode
 from django.utils.functional import allow_lazy
 from django.template.defaultfilters import stringfilter
 from django.conf import settings
+from django.db.models import get_model
+
+star_model = get_model('tracker', 'Star')
 
 register = template.Library()
+
+def starred_for(issue, user):
+	return True if star_model.objects.filter(issue=issue, user=user) else False
+
+register.filter(starred_for)
 
 def naturalday(value):
 	if not value:
