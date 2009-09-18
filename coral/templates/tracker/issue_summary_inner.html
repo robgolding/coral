@@ -11,7 +11,17 @@
 			{% gravatar_img_for_user object.raised_by 50 %}
 		</div>
 		
-		<h3><a href="{{object.get_absolute_url}}" title="{{object.description|truncatewords:20}}">{{object.title|truncatechars:75}}</a></h3>
+		<h3><a href="{{object.get_absolute_url}}" title="{{object.description|truncatewords:20}}">
+			{% ifequal object.assigned_to user %}
+				{% if not object|viewed_by:user %}
+					<strong>{{object.title|truncatechars:70}}</strong>
+				{% else %}
+					{{object.title|truncatechars:75}}
+				{% endif %}
+			{% else %}
+				{{object.title|truncatechars:75}}
+			{% endifequal %}
+		</a></h3>
 		
 		{% if object.get_tags %}
 			<div class="tags">

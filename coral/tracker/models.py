@@ -113,6 +113,7 @@ class Issue(models.Model):
 	status = models.CharField(max_length=20, choices=ISSUE_STATUS_CHOICES)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated = models.DateTimeField(auto_now=True, auto_now_add=True)
+	viewed_by = models.ManyToManyField(User, related_name="viewed_issues", editable=False)
 	
 	tags = TagField()
 	

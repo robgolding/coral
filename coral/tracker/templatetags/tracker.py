@@ -16,6 +16,11 @@ def starred_for(issue, user):
 
 register.filter(starred_for)
 
+def viewed_by(issue, user):
+	return True if user in issue.viewed_by.all() else False
+
+register.filter(viewed_by)
+
 def naturalday(value):
 	if not value:
 		return u''

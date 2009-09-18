@@ -4,6 +4,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_list, object_detail
 from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 
 from forms import NewIssueForm, EditIssueForm, AddNoteToIssueForm
 from models import Issue, IssuePriority, Star
@@ -37,6 +38,15 @@ def issue_list(request, tag=None, template_name='tracker/issue_list.html', **kwa
 	kwargs['extra_context']['priorities'] = IssuePriority.objects.all()
 	kwargs['extra_context']['filter'] = filter
 	return object_list(request, queryset, template_name=template_name, **kwargs)
+
+def issue_detail(request, queryset, object_id, *args, **kwargs):
+	queryset = queryset.filter(pk=object_id)
+	try:
+		obj = queryset.get()
+	except ObjectDoesNotExist:
+		raise Http404, "No %s found matching the query" % (queryset.model._meta.verbose_name)
+	obj.viewed_by.add(request.user)
+	return object_detail(request, queryset, object_id, *args, **kwargs)
 
 def issue_summary(request, object_id, queryset, *args, **kwargs):
 	format = request.GET.get('format', 'html')

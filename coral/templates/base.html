@@ -53,7 +53,7 @@
 				<div id="header-body" class="clearfix">
 					<div id="auth-banner">
 						{% if user.is_authenticated %}
-							Welcome, <a href="{{user.get_absolute_url}}"><strong>{{user|printuser}}</strong></a>. | <a href="{% url logout %}">Logout<a>
+							Welcome, <a href="{{user.get_absolute_url}}"><strong>{{user|printuser}}</strong></a>. | <a href="{% url logout %}">Logout</a>
 						{% else %}
 							You are not logged in. <a href="{% url login %}">Login</a>
 						{% endif %}

@@ -9,7 +9,7 @@ urlpatterns = patterns('django.views.generic',
 	
 	url(r'^$', views.issue_list, {'extra_context': {'tab': 'issues'}, 'paginate_by': settings.ISSUES_PER_PAGE}, name='tracker_issues'),
 	
-	url(r'^(?P<object_id>\d+)/$', 'list_detail.object_detail', {'queryset': Issue.objects.all(), 'extra_context': {'tab': 'issues'}}, name='tracker_issue_detail'),
+	url(r'^(?P<object_id>\d+)/$', views.issue_detail, {'queryset': Issue.objects.all(), 'extra_context': {'tab': 'issues'}}, name='tracker_issue_detail'),
 	
 	url(r'^(?P<object_id>\d+)/summary/$', views.issue_summary, {'queryset': Issue.objects.all(), 'template_name': 'tracker/issue_summary_inner.html'}, name='tracker_issue_summary'),
 	
