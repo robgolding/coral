@@ -26,7 +26,7 @@ urlpatterns = patterns('',
 	
 	url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': LOGOUT_REDIRECT_URL}, name="logout"),
 	
-	(r'^search/', include('search.urls')),
+	(r'^search/', include('coral.search.urls')),
 	
 )
 
