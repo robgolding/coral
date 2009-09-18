@@ -7,7 +7,9 @@ from tracker.utils import get_stats
 from tracker.views import index
 
 admin.autodiscover()
-	
+
+LOGOUT_REDIRECT_URL = getattr(settings, "LOGOUT_REDIRECT_URL", "/coral/")
+
 urlpatterns = patterns('',
 	
 	url(r'^admin/(.*)', admin.site.root, name="admin"),
@@ -22,7 +24,7 @@ urlpatterns = patterns('',
 	
 	url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'accounts/login.html'}, name="login"),
 	
-	url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/coral/'}, name="logout"),
+	url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': LOGOUT_REDIRECT_URL}, name="logout"),
 	
 )
 

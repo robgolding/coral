@@ -143,7 +143,7 @@ div.issue-detail-header div.left div.id span.length-4 { font-size: 3em; line-hei
 div.issue-detail-header div.left div.id span.length-5 { font-size: 2.4em; line-height: 3.2em; }
 
 div.issue-detail-header div.right { margin-top: 5px; }
-div.issue-detail-header div.actions { clear: right; float: right; padding-top: 10px; text-align: center; }
+div.issue-detail-header div.actions { clear: right; float: right; padding-top: 10px; width: 50px; text-align: center; }
 div.issue-detail-header div.actions a.previous-issue { float: left; }
 div.issue-detail-header div.actions a.next-issue { float: right; }
 
@@ -151,7 +151,7 @@ div.issue-detail-header h1 { margin: 10px 0 25px 0; }
 
 div.issue-detail-header div.under { width: 100%; clear: right; }
 
-div.issue-detail-header div.add-note { clear: left; float: right; background: url('/media/coral/icons/24-tag-add.png'); background-repeat: no-repeat; padding-top: 5px; padding-left: 26px; height: 19px; }
+div.issue-detail-header div.add-note { clear: left; float: right; background: url('../icons/24-tag-add.png'); background-repeat: no-repeat; padding-top: 5px; padding-left: 26px; height: 19px; }
 
 div.issue-detail-middle { padding: 10px 10px 20px; margin: 0 10px; border-bottom: 1px solid #CCC; }
 div.issue-detail-middle p { margin-bottom: 40px; }
