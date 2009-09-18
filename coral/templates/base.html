@@ -52,11 +52,16 @@
 			<div id="header">
 				<div id="header-body" class="clearfix">
 					<div id="auth-banner">
-						{% if user.is_authenticated %}
-							Welcome, <a href="{{user.get_absolute_url}}"><strong>{{user|printuser}}</strong></a>. | <a href="{% url logout %}">Logout</a>
-						{% else %}
-							You are not logged in. <a href="{% url login %}">Login</a>
-						{% endif %}
+						<form action="/search" method="GET">
+							{% if user.is_authenticated %}
+								Welcome, <a href="{{user.get_absolute_url}}"><strong>{{user|printuser}}</strong></a>. | <a href="{% url logout %}">Logout<a>
+							{% else %}
+								You are not logged in. | <a href="{% url login %}">Login</a>
+							{% endif %}
+							&nbsp;&nbsp;
+							<input type="text" name="q" size="15" />
+							<input type="submit" value="Search" />
+						</form>
 					</div>
 					
 					<div class="logo-div">
@@ -70,6 +75,7 @@
 							<li {% block notab %}{% ifnotequal tab 'none' %}{% if not tab %}class="activelink"{% endif %}{% endifnotequal %}{% endblock notab %}><a href="{% url index %}">Home</a></li>
 							<li {% ifequal tab 'issues' %}class="activelink"{% endifequal %}><a href="{% url tracker_issues %}">Issues</a></li>
 							<li {% ifequal tab 'users' %}class="activelink"{% endifequal %}><a href="{% url users_list %}">Users</a></li>
+							<li {% ifequal tab 'search' %}class="activelink"{% endifequal %}><a href="{% url haystack_search %}">Search</a></li>
 							{% if user.is_authenticated %}
 							{% if user.is_staff %}
 							<li {% ifequal tab 'admin' %}class="activelink"{% endifequal %}>

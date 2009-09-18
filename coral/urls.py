@@ -26,6 +26,8 @@ urlpatterns = patterns('',
 	
 	url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': LOGOUT_REDIRECT_URL}, name="logout"),
 	
+	(r'^search/', include('search.urls')),
+	
 )
 
 if hasattr(settings, 'WORKING_COPY') and settings.WORKING_COPY:

@@ -105,11 +105,19 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'profiles',
     'tagging',
+    'haystack',
     'coral.accounts',
     'coral.tracker',
     'coral.users',
+    'coral.search',
     'coral.svn_revision',
 )
+
+HAYSTACK_SITECONF = 'coral.search_sites'
+
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+
+HAYSTACK_WHOOSH_PATH = '/home/whoosh/coral_index'
 
 try:
 	from local_settings import *
