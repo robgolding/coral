@@ -45,7 +45,8 @@ def issue_detail(request, queryset, object_id, *args, **kwargs):
 		obj = queryset.get()
 	except ObjectDoesNotExist:
 		raise Http404, "No %s found matching the query" % (queryset.model._meta.verbose_name)
-	obj.viewed_by.add(request.user)
+	if request.user.is_authenticated():
+		obj.viewed_by.add(request.user)
 	return object_detail(request, queryset, object_id, *args, **kwargs)
 
 def issue_summary(request, object_id, queryset, *args, **kwargs):
