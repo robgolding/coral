@@ -33,9 +33,17 @@
 			<a href="{% url tracker_issue_detail object.id %}" title="{{object.priority.name}}"><div class="id priority-level-{{object.priority.level}}"><span class="length-{{object.id|numchars}}">{{object.id}}</span></div></a>
 		</div>
 		<div class="right">
-			<h4>&raquo; Raised by <a href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a></h4>
-			<h4>&raquo; Assigned to <a href="{{object.assigned_to.get_profile.get_absolute_url}}">{{object.assigned_to|printuser}}</a></h4>
-			<h4>&raquo; {{object.get_status_display}}, {{object.priority.name}}</h4>
+			{% with object.created_at|naturalday as naturalday %}
+			{% with object.created_at|date:"dS F Y" as properdate %}
+			{% with object.created_at|date:"H:i" as time %}
+			<ul>
+				<li>Raised by <a href="{{object.raised_by.get_profile.get_absolute_url}}">{{object.raised_by|printuser}}</a></li>
+				<li class="small">{% if naturalday %}<strong>{{naturalday}}</strong>{% else %}on <strong>{{properdate}}</strong>{% endif %} at {{time}}</li>
+				<li>Assigned to <a href="{{object.assigned_to.get_profile.get_absolute_url}}">{{object.assigned_to|printuser}}</a></li>
+				<li>{{object.get_status_display}}, {{object.priority.name}}</li>
+			{% endwith %}
+			{% endwith %}
+			{% endwith %}
 		</div>
 		<div class="actions">
 			{% if user.is_authenticated %}

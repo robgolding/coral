@@ -149,6 +149,10 @@ div.issue-detail-header div.actions a.next-issue { float: right; }
 
 div.issue-detail-header h1 { margin: 10px 0 25px 0; }
 
+div.issue-detail-header ul { margin: 0; padding: 0; margin-left: 20px; }
+div.issue-detail-header ul li { list-style-image: url("../raquo.png"); line-height: 2em; font-size: 1.1em; }
+div.issue-detail-header ul li.small { list-style: none; padding-left: 2em; font-size: 0.9em; }
+
 div.issue-detail-header div.under { width: 100%; clear: right; }
 
 div.issue-detail-header div.add-note { clear: left; float: right; background: url('../icons/24-tag-add.png'); background-repeat: no-repeat; padding-top: 5px; padding-left: 26px; height: 19px; }
