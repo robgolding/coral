@@ -12,6 +12,15 @@
 	{% endif %}
 {% endblock page-title-inner %}
 
+{% block js %}
+	{{block.super}}
+	
+	$(document).ready(function() {
+		$('#id_q').focus();
+	});
+	
+{% endblock js %}
+
 {% block content-left-inner %}
 	<div class="last sec">
 		<p>Enter your search terms in the field below to begin.</p>
