@@ -1,0 +1,4 @@
+syntax: glob
+*.pyc
+coral/dev.db
+coral/local_settings.py
